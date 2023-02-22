@@ -5,9 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sans Battle Creator</title>
-    <link href="css/stylesheet.css" type="stylesheet">
+    <link href="css/stylesheet.css" rel="stylesheet">
 </head>
 <body>
-    
+    <div id="itemToolbar">
+        <img src="images/gb_icon.PNG" id="gb" onclick="generateFor('gb');">
+    </div>
+    <canvas id="canvas" width="1280" height="960" onmousemove="getPos(event)"></canvas>
+    <script src="scripts/main.js"></script>
 </body>
 </html>

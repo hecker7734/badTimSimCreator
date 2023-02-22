@@ -179,4 +179,4 @@ EXTRA Stuff:
 2,BlackScreen,1,,,,,,                         (makes black screen)    
 0,SansText,_?,,                               (blank=what sans says)
  (320, 240) and the total screen size is 640x480.
-  x    y    
+  x    y                                 sc  sy
