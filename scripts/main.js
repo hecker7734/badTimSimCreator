@@ -19,6 +19,7 @@ function generateFor(fortype) {
 }
 
 function getPos(e){
-    Mousex=e.clientX;
-    Mousey=e.clientY;
+    var rect = canvas.getBoundingClientRect();
+    Mousex=e.clientX - rect.left;
+    Mousey=e.clientY - rect.top;
 }
