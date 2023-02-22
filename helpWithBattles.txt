@@ -1,0 +1,182 @@
+Notes:
+The 0 in front of each action acts as delay from the next action for example 0 is instant and 0.5 will wait half a second
+
+starting things:
+0,Sound,mus_zz_megalovania,0,,,,,
+0,SansAnimation,,,,
+0,SansTorso,Default,,
+
+BATTLE INFO:
+combat box:resizes box your inside in the battle instantlly
+
+
+0.5,CombatZoneResizeInstant,_x_,250,400,400,,,,  (blank=smaller number longer left extend)
+0.5,CombatZoneResizeInstant,250,_x_,400,400,,,,  (blank=smaller number longer up extend)
+0.5,CombatZoneResizeInstant,250,250,_x_,400,,,,  (blank=bigger number right extend)
+0.5,CombatZoneResizeInstant,250,250,400,_x_,,,,  (blank=bigger number down extend)
+
+copy paste:0,CombatZoneResizeInstant,250,250,400,400,,,,
+
+heart mode:(changes heart color 0=red and 1= blue)
+
+0,HeartMode,0,,,,
+0,HeartMode,1,,,, 
+
+copy paste:0,HeartMode,0,,,,
+
+______________________________________________________________________________
+
+ANIMATIONS: body and head animations are seprate
+
+
+BODY ANIMATIONS: 
+1.5,SansBody,HandLeft,,           (puts hand left).
+1.5,SansBody,HandRight,,          (puts hands right)
+1.5,SansBody,HandUp,,             (puts hand up)
+1.5,SansBody,HandDown,,           (puts hand down)
+0,SansTorso,Default,,             (default pose)
+0,SansSweat,1,,,                  (sweats)
+1,SansTorso,Shrug,,               (shrugs)
+
+
+HEAD ANIMATIONS:
+0,SansHead,Wink,,
+0,Sanshead,NoEyes,,
+0,SansHead,Default,,
+0,SansHead,Lookleft,,
+0,SansHead,ClosedEyes,,
+0,SansHead,BlueEye,,,
+
+
+SOUNDS:plays sounds
+
+0.5,Sound,Flash,,
+0,Sound,Ding,,
+0.1,Sound,PlayerFight,,,
+
+_______________________________________________________________________________________
+
+ATTACKS:
+0,GasterBlaster,1,300,0,470,400,270,0.7,0.6
+
+copy paste:(replace "_" with number(s)")
+0,GasterBlaster,_,300,0,470,400,270,0.7,0.6     (blank=1 or 2 size)
+
+0,GasterBlaster,1,_,0,470,400,270,0.7,0.6       (blank=curently unknown)
+
+0,GasterBlaster,1,300,_,470,400,270,0.7,0.6     (blank=curently unknown)
+
+0,GasterBlaster,1,300,0,_,400,270,0.7,0.6       (blank= lower number= farther to the left)
+
+0,GasterBlaster,1,300,0,470,_,270,0.7,0.6       (blank= lower number=higher up)
+
+0,GasterBlaster,1,300,0,470,400,_,0.7,0.6       (blank= degrees(0-360))
+
+0,GasterBlaster,1,300,0,470,400,270,_,0.6       (blank=amount waited before shooting)
+
+0,GasterBlaster,1,300,0,470,400,270,0.7,_       (blank=how long gaster is shooting)
+
+__________________________________________________________________________________________________
+
+0,BoneStab,2,90,0.5,0.3,,,
+
+copy paste( replace"_" with number(s))
+0,BoneStab,_,90,0.5,0.3,,,                      (blank=number 0-3 picks direction)
+
+0,BoneStab,2,_,0.5,0.3,,,                       (blank=how tall the bone is)
+
+0,BoneStab,2,90,_,0.3,,,                        (blank=delay on starting)
+
+0,BoneStab,2,90,0.5,_,,,                        (blank=how long attack stays out)
+
+
+0,BoneH,200,373,40, 2, 200,0,,
+
+copy paste:(replace "_" with number(s)")
+0,BoneH,_,373,40, 2, 200,0,,                    (blank=lower number=apears more towards the left side of screen)(x-axis)
+
+0,BoneH,200,_,40, 2, 200,0,,                    (blank=lower number=higher up)(y-axis)
+
+0,BoneH,200,373,_, 2, 200,0,,                   (blank=higher the number biger the bone)
+
+0,BoneH,200,373,40, _, 200,0,,                  (blank=direction 0-3)
+
+0,BoneH,200,373,40, 2, _,0,,                    (blank=lower number makes bone move slower)
+
+0,BoneH,200,373,40, 2, 200,_,,                  (blank=color of bone 0-1)
+
+________________________________________________________________________________________________
+
+0,BoneH,200,373,40, 2, 200,0,,
+
+copy paste:(replace "_" with number(s)")
+0,BoneV,_,335,40,2,250,1                        (blank=lower number=apears more towards the left side of screen)(x-axis)
+
+0,BoneV,640,_,40,2,250,1                        (blank=lower number=higher up)(y-axis)
+
+0,BoneV,640,335,_,2,250,1                       (blank=higher the number biger the bone)
+
+0,BoneV,640,335,40,_,250,1                      (blank=direction 0-3)
+
+0,BoneV,640,335,40,2,_,1                        (blank=lower number makes bone move slower)
+
+0,BoneV,640,335,40,2,250,_                      (blank=color of bone 0-1)
+
+_________________________________________________________________________________________________
+
+0,BoneVRepeat,400,340,25,2,135,10,85
+
+copy paste:(replace "_" with number(s)")
+0,BoneVRepeat,_,340,25,2,135,10,85             (blank=lower number=apears more towards the left side of screen)(x-axis)
+
+0,BoneVRepeat,400,_,25,2,135,10,85             (blank=lower number=higher up)(y-axis)
+
+0,BoneVRepeat,400,340,_,2,135,10,85            (blank=higher the number biger the bone)
+
+0,BoneVRepeat,400,340,25,_,135,10,85           (blank=direction 0-3)     
+
+0,BoneVRepeat,400,340,25,2,_,10,85             (blank=lower number makes bone move slower)
+
+0,BoneVRepeat,400,340,25,2,135,10,85           (blank=amount)
+
+0,BoneVRepeat,400,340,25,2,135,10,85           (blank=spacing)
+
+___________________________________________________________________________________________________
+
+0,Platform,480,296,40,1,80,,
+
+copy paste:(replace "_" with number(s)")
+0,Platform,_,296,40,1,80,,                    (blank=lower number=apears more towards the left side of screen)(x-axis)
+
+0,Platform,480,_,40,1,80,,                    (blank=lower number=higher up)(y-axis)
+
+0,Platform,480,296,_,1,80,,                   (blank=higher the number biger the bone)
+
+0,Platform,480,296,40,_,80,,                  (blank=direction 0-3)
+
+0,Platform,480,296,40,1,_,,                   (blank=lower number makes bone move slower)
+
+________________________________________________________________________________________________
+
+0,SansSlam,1,,
+
+copy paste:(replace "_" with number(s)")
+0,SansSlam,_,,                                (blank=direction 0-3)
+3 is up
+2 is left
+1 is down
+0 is right
+
+
+______________________________________________________________________________________________
+
+END WITH:
+4,EndAttack,,, 
+________________________________________________________________________________________________
+
+EXTRA Stuff:
+0,HeartMaxFallSpeed,200,,,                    (blank=when number is higher you fall faster
+2,BlackScreen,1,,,,,,                         (makes black screen)    
+0,SansText,_?,,                               (blank=what sans says)
+ (320, 240) and the total screen size is 640x480.
+  x    y    
