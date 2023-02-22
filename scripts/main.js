@@ -2,20 +2,63 @@ var canvas = document.getElementById("canvas")
 var ctx = canvas.getContext("2d");
 var mousedown = false
 var customattack = []
+var csvcustomattack = []
 var Mousex = 0
 var Mousey = 0
+var SaveX = 0
+var SaveY = 0
+var previewImageSize = 0
+var maxpreviewImageSize = 1
+var maxPreviewImageSizes = [{type:'GasterBlaster','m':2}]
+var genVal = null
+var shouldAddAttack = false
+var fortype = "_blank"
+ctx.fillStyle = "black";
+ctx.fillRect(0,0,canvas.width, canvas.height);
 canvas.addEventListener("mousedown", function(){
     mousedown = true
+    if (genVal != null) {
+        if(shouldAddAttack) {
+          clearInterval(genVal)
+          customattack[customattack.length] = {type:fortype,x:SaveX,y:SaveY,size:previewImageSize} 
+                                               //timer,fortype,size,startx,starty,savex,savey,direction,0.2,0.1
+          csvcustomattack[csvcustomattack.length] = document.getElementById("timer").value+","+fortype+","+previewImageSize+","+0+","+0+","+SaveX+","+SaveY+","+0+","+0.2+","+0.1
+          shouldAddAttack = false
+        }
+    }
 });
 canvas.addEventListener("mouseup", function(){
     mousedown = false
 });
-
-function generateFor(fortype) {
-    var genVal = setInterval(function() {
-        var img = document.getElementById(fortype);
-        ctx.drawImage(img, Mousex, Mousey);
-    },100)
+canvas.addEventListener('mousewheel', function(e){
+    if (e.wheelDelta < 0) {
+        previewImageSize += (e.wheelDelta / e.wheelDelta *-1)
+    } else {
+        previewImageSize += e.wheelDelta / e.wheelDelta  
+    }
+    console.log(previewImageSize % maxpreviewImageSize);
+    previewImageSize %= maxpreviewImageSize
+    if(previewImageSize == 0) {
+    previewImageSize = 1
+    }
+});
+function generateFor(_fortype) {
+    maxpreviewImageSize = 1 + maxPreviewImageSizes.find(x => x.type == 'GasterBlaster').m;
+    previewImageSize = 1
+    fortype = _fortype
+    shouldAddAttack = true
+     genVal = setInterval(function() {
+        var img = document.getElementById(_fortype);
+        ctx.fillStyle = "black";
+        ctx.fillRect(0,0,canvas.width, canvas.height);
+        ctx.drawImage(img, Mousex - previewImageSize * img.width / 2 , Mousey - previewImageSize * img.height / 2,previewImageSize * img.width, previewImageSize * img.height);
+        SaveX = Mousex - previewImageSize * img.width / 2
+        SaveY = Mousey - previewImageSize * img.height / 2
+        customattack.forEach(function(atk) {
+            img = document.getElementById(atk.type)
+            ctx.drawImage(img, atk.x, atk.y, atk.size * img.width, atk.size * img.height);
+        })
+    },10)
 }
 
 function getPos(e){
