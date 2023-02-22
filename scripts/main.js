@@ -78,11 +78,7 @@ function drawAttacks() {
         img = document.getElementById(atk.type)
         ctx.drawImage(img, atk.x, atk.y, atk.size * img.width, atk.size * img.height);
         if (atk.type == "GasterBlaster") {
-            ctx.fillStyle = "red";
-            ctx.beginPath();
-            ctx.lineTo(atk.x, atk.y)
-            ctx.moveTo(atk.x + 25, atk.y + 25);
-            ctx.stroke();
+           
         }
     })
 }
