@@ -9,6 +9,7 @@ body {
     background-color: rgb(48, 48, 48);
     padding: 5px;
     overflow-x:scroll;
+    display: flex;
 }
 .rounded {
     border-radius: 25px;
@@ -16,7 +17,10 @@ body {
     padding: 10px;
 }
 .toolbarItem {
-background-color: rgb(37, 37, 37);  
+    background-color: rgb(37, 37, 37);
+}
+.toolbarItem:hover {
+    background-color: rgb(82, 82, 82);
 }
 .tooltip {
   position: relative;
@@ -50,4 +54,8 @@ background-color: rgb(37, 37, 37);
 }
 .hideBar::-webkit-scrollbar { 
     display: none;  /* Safari and Chrome */
+}
+.maxContent {
+    width: max-content;
+    height: max-content;
 }
