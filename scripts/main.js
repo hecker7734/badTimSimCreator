@@ -11,7 +11,7 @@ var Mousey = 0
 var SaveX = 0
 var SaveY = 0
 var attackangle = 0
-var previewImageSize = 0.5
+var previewImageSize = 1
 var maxpreviewImageSize = 1
 var maxPreviewImageSizes = [{type:'GasterBlaster','maxsize':2}]
 var genVal = null
@@ -140,6 +140,11 @@ function exportCsv() {
     console.log(finalString)
     copyTextToClipboard(finalString)
 }
+function exportCode() {
+    let finalString = customattack.join('\r\n');
+    console.log(finalString)
+    copyTextToClipboard(finalString)
+}
 
 function setbox() {
     boxcoords = prompt("please type the numbers, firstX, firstY, lastX, lastY, With a comma in between them no spaces!").split(',')
@@ -155,7 +160,7 @@ function setbox() {
 function box() {
     ctx.strokeStyle = "white"
     ctx.lineWidth = 4
-    ctx.strokeRect(boxcoords[0],boxcoords[1]+ 100,boxcoords[2],boxcoords[3]+ 100)
+    ctx.strokeRect(boxcoords[0],boxcoords[1],boxcoords[2],boxcoords[3])
 }
 box()
 
@@ -179,7 +184,7 @@ function copyTextToClipboard(text) {
     try {
       var successful = document.execCommand('copy');
       var msg = successful ? 'successful' : 'unsuccessful';
-      alert(msg + " Copy");
+      //alert(msg + " Copy");
     } catch (err) {
       alert("Copy Failed")
     }
