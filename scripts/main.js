@@ -1,4 +1,6 @@
 document.getElementById("timer").value = 0 // default value
+document.getElementById("firefor").value = 0.2 // default value
+document.getElementById("delayfire").value = 0.1 // default value
 var canvas = document.getElementById("canvas")
 var ctx = canvas.getContext("2d");
 var mousedown = false
@@ -24,7 +26,7 @@ canvas.addEventListener("mousedown", function(){
           clearInterval(genVal)
           customattack[customattack.length] = {type:fortype,x:SaveX,y:SaveY,size:previewImageSize,angle:attackangle} 
                                                //timer,fortype,size,startx,starty,savex,savey,direction,0.2,0.1
-          csvcustomattack[csvcustomattack.length] = document.getElementById("timer").value+","+fortype+","+previewImageSize+","+0+","+0+","+SaveX+","+SaveY+","+attackangle+","+0.2+","+0.1
+          csvcustomattack[csvcustomattack.length] = document.getElementById("timer").value+","+fortype+","+previewImageSize+","+0+","+0+","+SaveX+","+SaveY+","+attackangle+","+document.getElementById("delayfire").value+","+document.getElementById("firefor").value
           shouldAddAttack = false
         }
     }

@@ -10,7 +10,13 @@
 <body>
     <input id="timer" placeholder="time before attack"><button onclick="exportCsv()">copy csv</button>
     <div id="itemToolbar" class="rounded">
-        <img src="images/GasterBlaster_icon.PNG" id="GasterBlaster" class="rounded toolbarItem" onclick="generateFor('GasterBlaster');">
+        <div class="gb tooltip">
+            <img src="images/GasterBlaster_icon.PNG" id="GasterBlaster" class="rounded toolbarItem" onclick="generateFor('GasterBlaster');">
+            <span class="tooltiptext">Gaster blaster Settings<hr class="darkHr">
+                <label for="delayfire">Delay Until Fire:</label><input id="delayfire" size=4/><br>
+                <label for="firefor">Fire For Seconds:</label><input id="firefor" size=4/>
+            </span>
+        </div>
     </div>
     <center><canvas id="canvas" width="640" height="480" onmousemove="getPos(event)"></canvas></center>
     <script src="scripts/main.js"></script>
