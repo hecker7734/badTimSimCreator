@@ -20,6 +20,7 @@ var fortype = "_blank"
 var boxcoords = [canvas.width / 2, canvas.height / 2 + 50, canvas.width / 3, canvas.height / 3 + 30]//[250,250,400,400]
 var redolist = []
 var csvredolist = []
+var objectSetting = null
 ctx.fillStyle = "black";
 ctx.fillRect(0,0,canvas.width, canvas.height);
 canvas.addEventListener("mousedown", function(){
@@ -27,6 +28,7 @@ canvas.addEventListener("mousedown", function(){
     if (genVal != null) {
         if(shouldAddAttack) {
           clearInterval(genVal)
+
         var tempangle = attackangle
         if(fortype == "GasterBlaster") {
         if(document.getElementById("aimPlayer").checked && fortype == "GasterBlaster") {
@@ -41,21 +43,26 @@ canvas.addEventListener("mousedown", function(){
                 csvcustomattack[csvcustomattack.length] = "0,ANGLE,Ang,"+SaveX+","+SaveY+",$HeartX,$HeartY,,,"
                 csvcustomattack[csvcustomattack.length] = document.getElementById("timer").value+","+fortype+","+previewImageSize+","+0+","+0+","+SaveX+","+SaveY+","+attackangle+","+document.getElementById("delayfire").value+","+document.getElementById("firefor").value
             }
-        } else {
-            csvcustomattack[csvcustomattack.length] = document.getElementById("timer").value+","+fortype+","+previewImageSize+","+0+","+0+","+SaveX+","+SaveY+","+attackangle+","+document.getElementById("delayfire").value+","+document.getElementById("firefor").value
+            } else {
+                csvcustomattack[csvcustomattack.length] = document.getElementById("timer").value+","+fortype+","+previewImageSize+","+0+","+0+","+SaveX+","+SaveY+","+attackangle+","+document.getElementById("delayfire").value+","+document.getElementById("firefor").value
+            }
         }
-        }
+
         if(fortype == "HeartMode") 
             csvcustomattack[csvcustomattack.length] = document.getElementById("timer").value+","+fortype+","+document.getElementById("heartmode_num").value
-        if(fortype == "SansSlam") 
+        
+        if(fortype == "SansSlam") {
+            if(document.getElementById("AnimationForSansSlam").checked){
+                objectSetting = "animateSlam;JSON.parse(document.getElementById('direction').value)"
+                var directions = ["HandRight","HandDown","HandLeft","HandUp"]
+                csvcustomattack[csvcustomattack.length] = "0,SansBody,"+directions[JSON.parse(document.getElementById("direction").value)]+","
+            }
             csvcustomattack[csvcustomattack.length] = document.getElementById("timer").value+","+fortype+","+JSON.parse(document.getElementById("direction").value)
-            customattack[customattack.length] = {type:fortype,x:SaveX,y:SaveY,size:previewImageSize,angle:attackangle,csv:csvcustomattack[csvcustomattack.length - 1]} 
-            if(document.getElementById("sansSlamShould").checked)
-                csvcustomattack[csvcustomattack.length] = document.getElementById("timer").value+","+fortype+","+JSON.parse(document.getElementById("direction").value)+','+document.getElementById("boneHeightSlam").value+','+document.getElementById("bonedelay").value+","+document.getElementById("bonelifetime").value
-        //defaults
+        }
+            //defaults
         attackangle = tempangle
         shouldAddAttack = false
-        customattack[customattack.length] = {type:fortype,x:SaveX,y:SaveY,size:previewImageSize,angle:attackangle,csv:csvcustomattack[csvcustomattack.length - 1]} 
+        customattack[customattack.length] = {type:fortype,x:SaveX,y:SaveY,size:previewImageSize,angle:attackangle,csv:csvcustomattack[csvcustomattack.length - 1],itemsettings:objectSetting} 
         }
     }
 });
@@ -98,6 +105,7 @@ canvas.addEventListener('mousewheel', function(e){
     
 });
 function generateFor(_fortype) {
+    if (shouldAddAttack == false){ 
     maxpreviewImageSize = 1 + maxPreviewImageSizes.find(x => x.type == _fortype).maxsize;
     if(maxPreviewImageSizes.find(x => x.type == _fortype).cannotSize) 
         previewImageSize = maxPreviewImageSizes.find(x => x.type == _fortype).maxsize;
@@ -127,6 +135,7 @@ function generateFor(_fortype) {
         SaveX = Mousex - previewImageSize * img.width / 2
         SaveY = Mousey - previewImageSize * img.height / 2
     },10)
+  }
 }
 
 function getPos(e){
@@ -162,13 +171,20 @@ function exportCode() {
     console.log(finalString)
     copyTextToClipboard(finalString)
 }
-function ImportCode() { 
+function ImportCode() {
+    alert("Warning: Importing code can be modified to cause harm, if you know js I suggest you to look through the code \n try to find `itemoptions` and check after its semi-colin if there is code that does not look right \n reload the page to stop the import.")
     document.getElementsByClassName("overlay")[0].style.display = "none";
     let code = JSON.parse(document.getElementById("importCodeString").value)
     customattack = code
     csvcustomattack = []
     for (let i = 0; i < customattack.length; i++) {
         csvcustomattack[i] = customattack[i].csv
+        
+        if(customattack[i].itemsettings != null) {
+            var objectSetting = customattack[i].itemsettings.split(";") //0 = identifier 1 = data
+            if(objectSetting[0] == "animateSlam")
+            var directions = ["HandRight","HandDown","HandLeft","HandUp"]; csvcustomattack[csvcustomattack.length] = "0,SansBody," + directions[eval(objectSetting[1])]
+        }        
     }
     alert("Finished Importing.")
     drawAttacks()

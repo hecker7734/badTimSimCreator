@@ -46,10 +46,16 @@ body {
 .tooltip:hover .tooltiptext {
   display:block;
 }
-
 .darkHr {
     background-color:rgb(48, 48, 48);
     height: 1px;
+    border: none;
+}
+.smallHr {
+    background-color:rgb(48, 48, 48);
+    height:1px;
+    padding:0px;
+    margin:0px;
     border: none;
 }
 .hideBar::-webkit-scrollbar { 
