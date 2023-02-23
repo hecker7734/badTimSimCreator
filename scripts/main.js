@@ -53,8 +53,8 @@ canvas.addEventListener("mousedown", function(){
         
         if(fortype == "SansSlam") {
             if(document.getElementById("AnimationForSansSlam").checked){
-                objectSetting = "animateSlam;JSON.parse(document.getElementById('direction').value)"
                 var directions = ["HandRight","HandDown","HandLeft","HandUp"]
+                objectSetting = "animateSlam;"+directions[JSON.parse(document.getElementById("direction").value)]
                 csvcustomattack[csvcustomattack.length] = "0,SansBody,"+directions[JSON.parse(document.getElementById("direction").value)]+","
             }
             csvcustomattack[csvcustomattack.length] = document.getElementById("timer").value+","+fortype+","+JSON.parse(document.getElementById("direction").value)
@@ -172,7 +172,6 @@ function exportCode() {
     copyTextToClipboard(finalString)
 }
 function ImportCode() {
-    alert("Warning: Importing code can be modified to cause harm, if you know js I suggest you to look through the code \n try to find `itemoptions` and check after its semi-colin if there is code that does not look right \n reload the page to stop the import.")
     document.getElementsByClassName("overlay")[0].style.display = "none";
     let code = JSON.parse(document.getElementById("importCodeString").value)
     customattack = code
@@ -183,7 +182,7 @@ function ImportCode() {
         if(customattack[i].itemsettings != null) {
             var objectSetting = customattack[i].itemsettings.split(";") //0 = identifier 1 = data
             if(objectSetting[0] == "animateSlam")
-            var directions = ["HandRight","HandDown","HandLeft","HandUp"]; csvcustomattack[csvcustomattack.length] = "0,SansBody," + directions[eval(objectSetting[1])]
+            csvcustomattack[csvcustomattack.length] = "0,SansBody," + objectSetting[1]
         }        
     }
     alert("Finished Importing.")
