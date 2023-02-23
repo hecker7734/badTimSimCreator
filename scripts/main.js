@@ -11,7 +11,7 @@ var SaveY = 0
 var attackangle = 0
 var previewImageSize = 0
 var maxpreviewImageSize = 1
-var maxPreviewImageSizes = [{type:'GasterBlaster','m':2}]
+var maxPreviewImageSizes = [{type:'GasterBlaster','maxsize':2}]
 var genVal = null
 var shouldAddAttack = false
 var fortype = "_blank"
@@ -55,19 +55,23 @@ canvas.addEventListener('mousewheel', function(e){
         return
     }
     if (e.wheelDelta < 0) {
-        previewImageSize += (e.wheelDelta / e.wheelDelta *-1)
+        previewImageSize += (e.wheelDelta / e.wheelDelta / 2 *-1)
     } else {
-        previewImageSize += e.wheelDelta / e.wheelDelta  
+        previewImageSize += e.wheelDelta / e.wheelDelta / 2
     }
-    console.log(previewImageSize % maxpreviewImageSize);
-    previewImageSize %= maxpreviewImageSize
-    if(previewImageSize == 0) {
-    previewImageSize = 1
-    }
+    if(previewImageSize >= maxpreviewImageSize) 
+        previewImageSize = 1 // loop de loop
+    if(previewImageSize <= 0) 
+        previewImageSize = maxpreviewImageSize - 1 // loop de loop
+    console.log(previewImageSize)
+    
 });
 function generateFor(_fortype) {
-    maxpreviewImageSize = 1 + maxPreviewImageSizes.find(x => x.type == 'GasterBlaster').m;
-    previewImageSize = 1
+    maxpreviewImageSize = 1 + maxPreviewImageSizes.find(x => x.type == 'GasterBlaster').maxsize;
+    if(previewImageSize >= maxpreviewImageSize) 
+        previewImageSize = 1
+    if(previewImageSize <= 0) 
+        previewImageSize = maxpreviewImageSize - 1 
     fortype = _fortype
     shouldAddAttack = true
      genVal = setInterval(function() {
