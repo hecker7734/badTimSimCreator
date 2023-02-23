@@ -211,6 +211,7 @@ function box() {
 box()
 
 function undolast() {
+    if(customattack[0] == undefined) return; //early return if nothing to undo
     redolist[redolist.length] = customattack[customattack.length - 1]
     csvredolist[csvredolist.length] = csvcustomattack[customattack.length - 1]
     csvcustomattack.splice(csvcustomattack.length - 1,1)
@@ -220,6 +221,7 @@ function undolast() {
     drawAttacks()
 }
 function redolast() {
+    if(redolist[0] == undefined) return; //early return if nothing to redo
     customattack[customattack.length] = redolist[redolist.length - 1]
     csvcustomattack[customattack.length] = csvredolist[csvredolist.length - 1]
     csvredolist.splice(csvredolist.length - 1,1)
