@@ -8,7 +8,9 @@
     <link href="css/stylesheet.css" rel="stylesheet">
 </head>
 <body>
-    <input id="timer" placeholder="time before attack"><button onclick="exportCsv()">copy csv</button><button onclick="setbox()">setup box</button>
+    <div class="overlay"><div class="overlaytext"><p>Copy And Paste Below:</p><textarea style="width: 522px; height: 554px; resize: none;"></textarea><br><center><button class="overlayButton">Import</button></center></div>
+    </div>
+    <input id="timer" class="rounded" placeholder="time before attack"><button class="rounded" onclick="exportCsv()">Copy Csv</button><button class="rounded" onclick="exportCode()">Copy Cope</button><button class="rounded" onclick="setbox()">setup box</button><button class="rounded" onclick='document.getElementsByClassName("overlay")[0].style.display = "block";'>Import code</button>
     <div id="itemToolbar" class="rounded hideBar">
         <div class="tooltip toolbarItem rounded">
             <img src="images/GasterBlaster_icon.PNG" id="GasterBlaster" onclick="generateFor('GasterBlaster');">
