@@ -9,9 +9,9 @@
 </head>
 <body>
     <input id="timer" placeholder="time before attack"><button onclick="exportCsv()">copy csv</button>
-    <div id="itemToolbar" class="rounded">
-        <div class="gb tooltip">
-            <img src="images/GasterBlaster_icon.PNG" id="GasterBlaster" class="rounded toolbarItem" onclick="generateFor('GasterBlaster');">
+    <div id="itemToolbar" class="rounded hideBar">
+        <div class="tooltip toolbarItem rounded">
+            <img src="images/GasterBlaster_icon.PNG" id="GasterBlaster" onclick="generateFor('GasterBlaster');">
             <span class="tooltiptext">Gaster blaster Settings<hr class="darkHr">
                 <label for="delayfire">Delay Until Fire:</label><input id="delayfire" size=4/><br>
                 <label for="firefor">Fire For Seconds:</label><input id="firefor" size=4/>
