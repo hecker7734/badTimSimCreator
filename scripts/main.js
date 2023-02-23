@@ -4,8 +4,8 @@ document.getElementById("delayfire").value = 0.1 // default value
 var canvas = document.getElementById("canvas")
 var ctx = canvas.getContext("2d");
 var mousedown = false
-var customattack = [{type:"boxcord",stx:250,sty:250,edx:400,edy:400}]
-var csvcusdomattack = ["0,CombatZoneResizeInstant,250,250,400,400,,,,"]
+var customattack = [{type:"boxcord",stx:250,sty:250,edx:400,edy:400},{type:'heartmode',mode:0},{type:"HeartTeleport",tpx:310,tpy:304}]
+var csvcustomattack = ["0,CombatZoneResizeInstant,250,250,400,400","0,HeartMode,0","0,HeartTeleport,310,304"]
 var Mousex = 0
 var Mousey = 0
 var SaveX = 0
@@ -86,7 +86,7 @@ canvas.addEventListener('mousewheel', function(e){
     
 });
 function generateFor(_fortype) {
-    maxpreviewImageSize = 1 + maxPreviewImageSizes.find(x => x.type == 'GasterBlaster').maxsize;
+    maxpreviewImageSize = 1 + maxPreviewImageSizes.find(x => x.type == _fortype).maxsize;
     if(previewImageSize >= maxpreviewImageSize) 
         previewImageSize = 1
     if(previewImageSize <= 0) 
@@ -99,7 +99,6 @@ function generateFor(_fortype) {
          y = Mousey - previewImageSize * img.height / 2
          ctx.fillStyle = "black";
          ctx.fillRect(0,0,canvas.width, canvas.height);
-         box()
          ctx.drawImage(img,x,y,previewImageSize * img.width, previewImageSize * img.height);
          r = 50;
          theta = attackangle
@@ -122,7 +121,8 @@ function getPos(e){
 }
 function drawAttacks() {
     customattack.forEach(function(atk) {
-        img = document.getElementById(atk.type)
+        if(atk.type == "boxcord") return;
+        img = document.getElementById(atk.type) 
         ctx.drawImage(img, atk.x, atk.y, atk.size * img.width, atk.size * img.height);
         ctx.lineWidth = 4;
         theta = atk.angle
