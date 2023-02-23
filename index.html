@@ -18,8 +18,8 @@
     <button class="button rounded" onclick="setbox()">setup box</button>
     <button class="rounded button" onclick='document.getElementsByClassName("overlay")[0].style.display = "block";'>Import code</button>
     <div id="itemToolbar" class="rounded hideBar">
-        <div class="tooltip toolbarItem rounded animateOnClick"  onclick="generateFor('GasterBlaster');">
-            <img src="images/GasterBlaster_icon.PNG" id="GasterBlaster">
+        <div class="tooltip toolbarItem rounded animateOnClick"  >
+            <img src="images/GasterBlaster_icon.PNG" id="GasterBlaster" onclick="generateFor('GasterBlaster');">
             <span class="tooltiptext">Gaster blaster Settings<hr class="darkHr">
                 <label for="delayfire">Delay Until Fire:</label><input id="delayfire" size=4/><br>
                 <label for="firefor">Fire For Seconds:</label><input id="firefor" size=4/>
@@ -27,24 +27,24 @@
                 <label for="aimPlayer2">Aim At Player, At RND XY?</label><input type="checkbox" id="aimPlayer2"/>
             </span>
         </div>
-        <div  class="toolbarItem rounded tooltip animateOnClick"  onclick="generateFor('HeartMode');">
-            <img src="images/HeartTeleport.png" id="HeartMode">
+        <div  class="toolbarItem rounded tooltip animateOnClick"  >
+            <img src="images/HeartTeleport.png" id="HeartMode"onclick="generateFor('HeartMode');">
             <span class="tooltiptext">Heart Mode Settings<hr class="darkHr">
             <label for="heartmode_num">HeartMode(0 - Red, 1 - Blue): </label><input id="heartmode_num" size=4/><br></span>
         </div>
-        <div  class="toolbarItem rounded tooltip animateOnClick" onclick="generateFor('sansSlam');">
-            <img src="images/sansSlam.png" id="sansSlam">
+        <div  class="toolbarItem rounded tooltip animateOnClick">
+            <img src="images/sansSlam.png" id="SansSlam"  onclick="generateFor('SansSlam');">
             <span class="tooltiptext">Sans Slam Settings<hr class="darkHr">
             <label for="sansSlamShould">Should Spawn Bones:</label><input type="checkbox" id="sansSlamShould"/><br>
             <label for="boneHeightSlam">Bone Height If Spawn: </label><input  size=1 id="boneHeightSlam"/><br>
             <label for="bonelifetime">Bones Lifetime: </label><input size=4 id="bonelifetime"/><br>
             <label for="bonedelay">Bone Spawntime: </label><input size=4 id="bonedelay"/><br>
-            <label for="direction">Direction: </label><input size=4 id="bonedelay"/><br>
+            <label for="direction">Direction:</label>
             <select id="direction">
-                <option value=0>Down-To-Up</option>
-                <option value=1>Up-To-Down</option>
+                <option value=1>Down-To-Up</option>
+                <option value=3>Up-To-Down</option>
                 <option value=2>Left-to-Right</option>
-                <option value=3>Right-to-Left</option>
+                <option value=0>Right-to-Left</option>
               </select>
         </span>
         </div>

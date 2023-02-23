@@ -153,7 +153,7 @@ copy paste:(replace "_" with number(s)")
 0,Platform,480,296,_,1,80,,                   (blank=higher the number biger the bone)
 
 0,Platform,480,296,40,_,80,,                  (blank=direction 0-3)
-
+ 
 0,Platform,480,296,40,1,_,,                   (blank=lower number makes bone move slower)
 
 ________________________________________________________________________________________________
