@@ -1,3 +1,4 @@
+document.getElementById("timer").value = 0 // default value
 var canvas = document.getElementById("canvas")
 var ctx = canvas.getContext("2d");
 var mousedown = false
@@ -38,6 +39,10 @@ canvas.addEventListener('mousewheel', function(e){
         } else {
             attackangle += 1
         }
+        if(attackangle > 360) 
+            attackangle = 360
+        if(attackangle < 0) 
+            attackangle = 0
         console.log(attackangle)
         return
     }
@@ -58,13 +63,22 @@ function generateFor(_fortype) {
     fortype = _fortype
     shouldAddAttack = true
      genVal = setInterval(function() {
-        var img = document.getElementById(_fortype);
-        ctx.fillStyle = "black";
-        ctx.fillRect(0,0,canvas.width, canvas.height);
-        ctx.drawImage(img, Mousex - previewImageSize * img.width / 2 , Mousey - previewImageSize * img.height / 2,previewImageSize * img.width, previewImageSize * img.height);
+         var img = document.getElementById(_fortype);
+         x = Mousex - previewImageSize * img.width / 2 
+         y = Mousey - previewImageSize * img.height / 2
+         ctx.fillStyle = "black";
+         ctx.fillRect(0,0,canvas.width, canvas.height);
+         ctx.drawImage(img,x,y,previewImageSize * img.width, previewImageSize * img.height);
+         r = 50;
+         theta = attackangle
+         ctx.strokeStyle = "red"
+         ctx.beginPath();
+         ctx.moveTo(x, y );
+         ctx.lineTo(x + r * Math.cos(Math.PI * theta / 180.0), y + r * Math.sin(Math.PI * theta / 180.0));
+         ctx.stroke();
+         drawAttacks()
         SaveX = Mousex - previewImageSize * img.width / 2
         SaveY = Mousey - previewImageSize * img.height / 2
-        drawAttacks()
     },10)
 }
 
@@ -77,8 +91,15 @@ function drawAttacks() {
     customattack.forEach(function(atk) {
         img = document.getElementById(atk.type)
         ctx.drawImage(img, atk.x, atk.y, atk.size * img.width, atk.size * img.height);
-        if (atk.type == "GasterBlaster") {
-           
-        }
+        ctx.strokeStyle = "blue"
+        ctx.beginPath();
+        ctx.moveTo(atk.x, atk.y);
+        ctx.lineTo(atk.x + r * Math.cos(Math.PI * theta / 180.0), atk.y + r * Math.sin(Math.PI * theta / 180.0));
+        ctx.stroke();
     })
+}
+
+function exportCsv() {
+    let finalString  = csvcustomattack.join('\r\n');
+    console.log(finalString)
 }
