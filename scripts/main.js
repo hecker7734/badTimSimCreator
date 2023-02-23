@@ -4,7 +4,7 @@ document.getElementById("delayfire").value = 0.1 // default value
 var canvas = document.getElementById("canvas")
 var ctx = canvas.getContext("2d");
 var mousedown = false
-var customattack = [{type:"boxcord",stx:250,sty:250,edx:400,edy:400},{type:'heartmode',mode:0},{type:"HeartTeleport",tpx:310,tpy:304}]
+var customattack = [{type:"boxcord",stx:250,sty:250,edx:400,edy:400,isattack:false},{type:'heartmode',mode:0,isattack:false},{type:"HeartTeleport",tpx:310,tpy:304,isattack:false}]
 var csvcustomattack = ["0,CombatZoneResizeInstant,250,250,400,400","0,HeartMode,0","0,HeartTeleport,310,304"]
 var Mousex = 0
 var Mousey = 0
@@ -121,7 +121,7 @@ function getPos(e){
 }
 function drawAttacks() {
     customattack.forEach(function(atk) {
-        if(atk.type == "boxcord") return;
+        if(atk.isattack == false) return;
         img = document.getElementById(atk.type) 
         ctx.drawImage(img, atk.x, atk.y, atk.size * img.width, atk.size * img.height);
         ctx.lineWidth = 4;
@@ -138,7 +138,9 @@ function drawAttacks() {
 function exportCsv() {
     let finalString = csvcustomattack.join('\r\n');
     console.log(finalString)
-    alert(finalString)
+    copyText.select(finalString);
+    copyText.setSelectionRange(0, 99999); // For mobile devices
+   navigator.clipboard.writeText(copyText.value); // copy here
 }
 
 function setbox() {
