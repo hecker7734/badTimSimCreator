@@ -17,6 +17,7 @@ var maxPreviewImageSizes = [{type:'GasterBlaster','maxsize':2}]
 var genVal = null
 var shouldAddAttack = false
 var fortype = "_blank"
+var boxcoords = [0,0,0,0]
 ctx.fillStyle = "black";
 ctx.fillRect(0,0,canvas.width, canvas.height);
 canvas.addEventListener("mousedown", function(){
@@ -130,10 +131,30 @@ function drawAttacks() {
         ctx.lineTo(atk.x + r * Math.cos(Math.PI * theta / 180.0), atk.y + r * Math.sin(Math.PI * theta / 180.0));
         ctx.stroke();
     })
+    box()
 }
 
 function exportCsv() {
     let finalString = csvcustomattack.join('\r\n');
     console.log(finalString)
     alert(finalString)
+}
+
+function setbox() {
+    boxcoords = prompt("please type the numbers, firstX, firstY, lastX, lastY, With a comma in between them no spaces!").split(',')
+    for (let i = 0; i < boxcoords.length; i++) {
+        boxcoords[i] = parseFloat(boxcoords[i])
+    }
+    if (boxcoords.length > 4)
+        alert("Invalid Cords, Please Try again. \n error: too many cords.")
+    if (boxcoords.findIndex(n => Number.isNaN(n)) != -1)
+        alert("Invalid Cords, Please Try again. \n error: one or more cords are not a number and could not be parsed.")
+}
+
+function box() {
+    ctx.beginPath();
+    ctx.moveTo(boxcoords[0]);
+    ctx.lineTo(boxcoords[1]);
+    ctx.lineTo(boxcoords[2]);
+    ctx.lineTo(boxcoords[3]);
 }
