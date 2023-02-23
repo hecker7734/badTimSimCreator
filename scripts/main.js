@@ -140,10 +140,18 @@ function exportCsv() {
     console.log(finalString)
     copyTextToClipboard(finalString)
 }
-function exportCode() {
-    let finalString = customattack.join('\r\n');
+function exportCode() { 
+    let finalString = JSON.stringify(customattack)
     console.log(finalString)
-    copyTextToClipboard(finalString)
+    copyTextToClipboard( "'"+ finalString + "'")
+}
+function ImportCode() { 
+    document.getElementsByClassName("overlay")[0].style.display = "none";
+    let finalString = JSON.parse(document.getElementById("importCodeString").value)
+    customattack = finalString;
+    var csvcustomattack = ["0,CombatZoneResizeInstant,250,250,400,400","0,HeartMode,0","0,HeartTeleport,310,304"] // reset to import from customattack
+    
+    drawAttacks()
 }
 
 function setbox() {
