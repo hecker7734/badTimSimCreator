@@ -13,7 +13,7 @@ var SaveY = 0
 var attackangle = 0
 var previewImageSize = 1
 var maxpreviewImageSize = 1
-var maxPreviewImageSizes = [{type:'GasterBlaster','maxsize':2,cannotSize:false},{type:'HeartMode','maxsize':0.2,cannotSize:true}]
+var maxPreviewImageSizes = [{type:'GasterBlaster','maxsize':2,cannotSize:false},{type:'HeartMode','maxsize':0.2,cannotSize:true},{type:'SansSlam','maxsize':0.2,cannotSize:true}]
 var genVal = null
 var shouldAddAttack = false
 var fortype = "_blank"
@@ -47,6 +47,9 @@ canvas.addEventListener("mousedown", function(){
         }
         if(fortype == "HeartMode") 
             csvcustomattack[csvcustomattack.length] = document.getElementById("timer").value+","+fortype+","+document.getElementById("heartmode_num").value
+        if(fortype == "SansSlam") 
+            csvcustomattack[csvcustomattack.length] = document.getElementById("timer").value+","+fortype+","+document.getElementById("heartmode_num").value
+        //defaults
         attackangle = tempangle
         shouldAddAttack = false
         customattack[customattack.length] = {type:fortype,x:SaveX,y:SaveY,size:previewImageSize,angle:attackangle,csv:csvcustomattack[csvcustomattack.length - 1]} 
