@@ -57,6 +57,8 @@ canvas.addEventListener("mousedown", function(){
                 objectSetting = "animateSlam;"+directions[JSON.parse(document.getElementById("direction").value)]
                 csvcustomattack[csvcustomattack.length] = "0,SansBody,"+directions[JSON.parse(document.getElementById("direction").value)]+","
             }
+            if(document.getElementById("sansSlamShould").checked) //0,BoneStab,2,90,0.5,0.3,,
+                csvcustomattack[csvcustomattack.length] = "0,BoneStab,"+JSON.parse(document.getElementById("direction").value)+","+document.getElementById("boneHeightSlam").value+","+document.getElementById("bonedelay").value+","+document.getElementById("bonelifetime").value
             csvcustomattack[csvcustomattack.length] = document.getElementById("timer").value+","+fortype+","+JSON.parse(document.getElementById("direction").value)
         }
             //defaults
