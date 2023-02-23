@@ -155,7 +155,7 @@ function setbox() {
 function box() {
     ctx.strokeStyle = "white"
     ctx.lineWidth = 4
-    ctx.strokeRect(boxcoords[0],boxcoords[1]+ 100,boxcoords[2],boxcoords[3]+ 100)
+    ctx.strokeRect(boxcoords[0],boxcoords[1]+ 50,boxcoords[2],boxcoords[3]+ 50)
 }
 box()
 
