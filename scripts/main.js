@@ -4,8 +4,8 @@ document.getElementById("delayfire").value = 0.1 // default value
 var canvas = document.getElementById("canvas")
 var ctx = canvas.getContext("2d");
 var mousedown = false
-var customattack = []
-var csvcustomattack = []
+var customattack = [{type:"boxcord",stx:250,sty:250,edx:400,edy:400}]
+var csvcusdomattack = ["0,CombatZoneResizeInstant,250,250,400,400,,,,"]
 var Mousex = 0
 var Mousey = 0
 var SaveX = 0
@@ -17,7 +17,7 @@ var maxPreviewImageSizes = [{type:'GasterBlaster','maxsize':2}]
 var genVal = null
 var shouldAddAttack = false
 var fortype = "_blank"
-var boxcoords = [0,0,0,0]
+var boxcoords = [250,250,400,400]
 ctx.fillStyle = "black";
 ctx.fillRect(0,0,canvas.width, canvas.height);
 canvas.addEventListener("mousedown", function(){
@@ -152,9 +152,8 @@ function setbox() {
 }
 
 function box() {
-    ctx.beginPath();
-    ctx.moveTo(boxcoords[0]);
-    ctx.lineTo(boxcoords[1]);
-    ctx.lineTo(boxcoords[2]);
-    ctx.lineTo(boxcoords[3]);
+    ctx.strokeStyle = "white"
+    ctx.lineWidth = 4
+    ctx.strokeRect(boxcoords[0],boxcoords[1],boxcoords[2],boxcoords[3])
 }
+box()
