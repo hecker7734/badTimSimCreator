@@ -15,9 +15,11 @@
             <span class="tooltiptext">Gaster blaster Settings<hr class="darkHr">
                 <label for="delayfire">Delay Until Fire:</label><input id="delayfire" size=4/><br>
                 <label for="firefor">Fire For Seconds:</label><input id="firefor" size=4/>
+                <label for="aimPlayer">Aim At Player?</label><input type="checkbox" id="aimPlayer"/><br>
+                <label for="aimPlayer2">Aim At Player, At RND XY?</label><input type="checkbox" id="aimPlayer2"/>
             </span>
         </div>
-    </div>
+    </div><br><br> <!--two breaks to push down the canvas -->
     <center><canvas id="canvas" width="640" height="480" onmousemove="getPos(event)"></canvas></center>
     <script src="scripts/main.js"></script>
 </body>

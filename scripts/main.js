@@ -26,8 +26,24 @@ canvas.addEventListener("mousedown", function(){
           clearInterval(genVal)
           customattack[customattack.length] = {type:fortype,x:SaveX,y:SaveY,size:previewImageSize,angle:attackangle} 
                                                //timer,fortype,size,startx,starty,savex,savey,direction,0.2,0.1
-          csvcustomattack[csvcustomattack.length] = document.getElementById("timer").value+","+fortype+","+previewImageSize+","+0+","+0+","+SaveX+","+SaveY+","+attackangle+","+document.getElementById("delayfire").value+","+document.getElementById("firefor").value
-          shouldAddAttack = false
+        var tempangle = attackangle
+        if(document.getElementById("aimPlayer").checked && fortype == "GasterBlaster") {
+            attackangle = "$Ang"
+            csvcustomattack[csvcustomattack.length] = "0,GetHeartPos,HeartX,HeartY,,,,,,"
+            if(document.getElementById("aimPlayer2").checked){
+                csvcustomattack[csvcustomattack.length] = "0,RND,X,360,,,,,,"
+                csvcustomattack[csvcustomattack.length] = "0,RND,Y,360,,,,,,"
+                csvcustomattack[csvcustomattack.length] = "0,ANGLE,Ang,$X,$Y,$HeartX,$HeartY,,,"
+                csvcustomattack[csvcustomattack.length] = document.getElementById("timer").value+","+fortype+","+previewImageSize+","+0+","+0+",$X,$Y,"+attackangle+","+document.getElementById("delayfire").value+","+document.getElementById("firefor").value
+            } else {
+                csvcustomattack[csvcustomattack.length] = "0,ANGLE,Ang,"+SaveX+","+SaveY+",$HeartX,$HeartY,,,"
+                csvcustomattack[csvcustomattack.length] = document.getElementById("timer").value+","+fortype+","+previewImageSize+","+0+","+0+","+SaveX+","+SaveY+","+attackangle+","+document.getElementById("delayfire").value+","+document.getElementById("firefor").value
+            }
+        } else {
+            csvcustomattack[csvcustomattack.length] = document.getElementById("timer").value+","+fortype+","+previewImageSize+","+0+","+0+","+SaveX+","+SaveY+","+attackangle+","+document.getElementById("delayfire").value+","+document.getElementById("firefor").value
+        }
+        attackangle = tempangle
+        shouldAddAttack = false
         }
     }
 });
