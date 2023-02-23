@@ -99,6 +99,7 @@ function generateFor(_fortype) {
          y = Mousey - previewImageSize * img.height / 2
          ctx.fillStyle = "black";
          ctx.fillRect(0,0,canvas.width, canvas.height);
+         box()
          ctx.drawImage(img,x,y,previewImageSize * img.width, previewImageSize * img.height);
          r = 50;
          theta = attackangle
