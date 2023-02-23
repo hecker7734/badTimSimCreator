@@ -34,10 +34,18 @@ canvas.addEventListener("mouseup", function(){
 });
 canvas.addEventListener('mousewheel', function(e){
     if (e.shiftKey) {
-        if (e.wheelDelta < 0) {
+        if (e.wheelDelta > 0) {
+            if(e.altKey) {
+                attackangle -= 6
+            } else {
             attackangle -= 1
+            }
         } else {
+            if(e.altKey) {
+                attackangle += 6
+            } else {
             attackangle += 1
+            }
         }
         if(attackangle > 360) 
             attackangle = 360
@@ -72,6 +80,7 @@ function generateFor(_fortype) {
          r = 50;
          theta = attackangle
          ctx.strokeStyle = "red"
+         ctx.lineWidth = 4;
          ctx.beginPath();
          ctx.moveTo(x, y );
          ctx.lineTo(x + r * Math.cos(Math.PI * theta / 180.0), y + r * Math.sin(Math.PI * theta / 180.0));
@@ -91,6 +100,8 @@ function drawAttacks() {
     customattack.forEach(function(atk) {
         img = document.getElementById(atk.type)
         ctx.drawImage(img, atk.x, atk.y, atk.size * img.width, atk.size * img.height);
+        ctx.lineWidth = 4;
+        theta = atk.angle
         ctx.strokeStyle = "blue"
         ctx.beginPath();
         ctx.moveTo(atk.x, atk.y);
@@ -100,6 +111,7 @@ function drawAttacks() {
 }
 
 function exportCsv() {
-    let finalString  = csvcustomattack.join('\r\n');
+    let finalString = csvcustomattack.join('\r\n');
     console.log(finalString)
+    alert(finalString)
 }
