@@ -4,7 +4,7 @@ document.getElementById("delayfire").value = 0.1 // default value
 var canvas = document.getElementById("canvas")
 var ctx = canvas.getContext("2d");
 var mousedown = false
-var customattack = [{type:"boxcord",stx:250,sty:250,edx:400,edy:400,isattack:false},{type:'heartmode',mode:0,isattack:false},{type:"HeartTeleport",tpx:310,tpy:304,isattack:false}]
+var customattack = [{type:"boxcord",stx:250,sty:250,edx:400,edy:400,isattack:false,csv:"0,CombatZoneResizeInstant,250,250,400,400"},{type:'heartmode',mode:0,isattack:false,csv:"0,HeartMode,0"},{type:"HeartTeleport",tpx:310,tpy:304,isattack:false,csv:"0,HeartTeleport,310,304"}]
 var csvcustomattack = ["0,CombatZoneResizeInstant,250,250,400,400","0,HeartMode,0","0,HeartTeleport,310,304"]
 var Mousex = 0
 var Mousey = 0
@@ -13,11 +13,13 @@ var SaveY = 0
 var attackangle = 0
 var previewImageSize = 1
 var maxpreviewImageSize = 1
-var maxPreviewImageSizes = [{type:'GasterBlaster','maxsize':2}]
+var maxPreviewImageSizes = [{type:'GasterBlaster','maxsize':2,cannotSize:false},{type:'HeartMode','maxsize':0.2,cannotSize:true}]
 var genVal = null
 var shouldAddAttack = false
 var fortype = "_blank"
-var boxcoords = [250,250,400,400]
+var boxcoords = [canvas.width / 2, canvas.height / 2 + 50, canvas.width / 3, canvas.height / 3 + 30]//[250,250,400,400]
+var redolist = []
+var csvredolist = []
 ctx.fillStyle = "black";
 ctx.fillRect(0,0,canvas.width, canvas.height);
 canvas.addEventListener("mousedown", function(){
@@ -25,9 +27,8 @@ canvas.addEventListener("mousedown", function(){
     if (genVal != null) {
         if(shouldAddAttack) {
           clearInterval(genVal)
-          customattack[customattack.length] = {type:fortype,x:SaveX,y:SaveY,size:previewImageSize,angle:attackangle} 
-                                               //timer,fortype,size,startx,starty,savex,savey,direction,0.2,0.1
         var tempangle = attackangle
+        if(fortype == "GasterBlaster") {
         if(document.getElementById("aimPlayer").checked && fortype == "GasterBlaster") {
             attackangle = "$Ang"
             csvcustomattack[csvcustomattack.length] = "0,GetHeartPos,HeartX,HeartY,,,,,,"
@@ -43,8 +44,12 @@ canvas.addEventListener("mousedown", function(){
         } else {
             csvcustomattack[csvcustomattack.length] = document.getElementById("timer").value+","+fortype+","+previewImageSize+","+0+","+0+","+SaveX+","+SaveY+","+attackangle+","+document.getElementById("delayfire").value+","+document.getElementById("firefor").value
         }
+        }
+        if(fortype == "HeartMode") 
+            csvcustomattack[csvcustomattack.length] = document.getElementById("timer").value+","+fortype+","+document.getElementById("heartmode_num").value
         attackangle = tempangle
         shouldAddAttack = false
+        customattack[customattack.length] = {type:fortype,x:SaveX,y:SaveY,size:previewImageSize,angle:attackangle,csv:csvcustomattack[csvcustomattack.length - 1]} 
         }
     }
 });
@@ -73,6 +78,7 @@ canvas.addEventListener('mousewheel', function(e){
         console.log(attackangle)
         return
     }
+    if(maxPreviewImageSizes.find(x => x.type == fortype).cannotSize == true) return;
     if (e.wheelDelta < 0) {
         previewImageSize += (e.wheelDelta / e.wheelDelta / 2 *-1)
     } else {
@@ -87,10 +93,13 @@ canvas.addEventListener('mousewheel', function(e){
 });
 function generateFor(_fortype) {
     maxpreviewImageSize = 1 + maxPreviewImageSizes.find(x => x.type == _fortype).maxsize;
+    if(maxPreviewImageSizes.find(x => x.type == _fortype).cannotSize) 
+        previewImageSize = maxPreviewImageSizes.find(x => x.type == _fortype).maxsize;
     if(previewImageSize >= maxpreviewImageSize) 
         previewImageSize = 1
     if(previewImageSize <= 0) 
-        previewImageSize = maxpreviewImageSize - 1 
+        previewImageSize = maxpreviewImageSize - 1
+    
     fortype = _fortype
     shouldAddAttack = true
      genVal = setInterval(function() {
@@ -125,6 +134,7 @@ function drawAttacks() {
         img = document.getElementById(atk.type) 
         ctx.drawImage(img, atk.x, atk.y, atk.size * img.width, atk.size * img.height);
         ctx.lineWidth = 4;
+        r = 50;
         theta = atk.angle
         ctx.strokeStyle = "blue"
         ctx.beginPath();
@@ -142,15 +152,19 @@ function exportCsv() {
 }
 function exportCode() { 
     let finalString = JSON.stringify(customattack)
+    //finalString += ";"+csvcustomattack.join('\r\n')
     console.log(finalString)
-    copyTextToClipboard( "'"+ finalString + "'")
+    copyTextToClipboard(finalString)
 }
 function ImportCode() { 
     document.getElementsByClassName("overlay")[0].style.display = "none";
-    let finalString = JSON.parse(document.getElementById("importCodeString").value)
-    customattack = finalString;
-    var csvcustomattack = ["0,CombatZoneResizeInstant,250,250,400,400","0,HeartMode,0","0,HeartTeleport,310,304"] // reset to import from customattack
-    
+    let code = JSON.parse(document.getElementById("importCodeString").value)
+    customattack = code
+    csvcustomattack = []
+    for (let i = 0; i < customattack.length; i++) {
+        csvcustomattack[i] = customattack[i].csv
+    }
+    alert("Finished Importing.")
     drawAttacks()
 }
 
@@ -172,6 +186,24 @@ function box() {
 }
 box()
 
+function undolast() {
+    redolist[redolist.length] = customattack[customattack.length - 1]
+    csvredolist[csvredolist.length] = csvcustomattack[customattack.length - 1]
+    csvcustomattack.splice(csvcustomattack.length - 1,1)
+    customattack.splice(customattack.length - 1,1)
+    ctx.fillStyle = "black";
+    ctx.fillRect(0,0,canvas.width, canvas.height);
+    drawAttacks()
+}
+function redolast() {
+    customattack[customattack.length] = redolist[redolist.length - 1]
+    csvcustomattack[customattack.length] = csvredolist[csvredolist.length - 1]
+    csvredolist.splice(csvredolist.length - 1,1)
+    redolist.splice(redolist.length - 1,1)
+    ctx.fillStyle = "black";
+    ctx.fillRect(0,0,canvas.width, canvas.height);
+    drawAttacks()
+}
 
 function copyTextToClipboard(text) {
     var textArea = document.createElement("textarea");
