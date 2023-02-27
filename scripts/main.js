@@ -100,11 +100,11 @@ canvas.addEventListener('mousewheel', function(e){
     } else {
         previewImageSize += e.wheelDelta / e.wheelDelta / 2
     }
-    if(previewImageSize > maxpreviewImageSize) 
-        previewImageSize = maxpreviewImageSize // loop de loop
-    if(previewImageSize < 1) 
-        previewImageSize = 0.5 // loop de loop
-    console.log(previewImageSize)
+    previewImageSize %= maxpreviewImageSize
+    if(previewImageSize == 0) {
+    previewImageSize = 1
+        previewImageSize += e.wheelDelta / e.wheelDelta / 2
+    }
     
 });
 function generateFor(_fortype) {
