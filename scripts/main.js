@@ -103,7 +103,7 @@ canvas.addEventListener('mousewheel', function(e){
     if(previewImageSize >= maxpreviewImageSize) 
         previewImageSize = 1 // loop de loop
     if(previewImageSize <= 0) 
-        previewImageSize = maxpreviewImageSize - 1 // loop de loop
+        previewImageSize = maxpreviewImageSize // loop de loop
     console.log(previewImageSize)
     
 });
